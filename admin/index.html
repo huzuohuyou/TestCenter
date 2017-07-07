@@ -51,19 +51,18 @@
 					<em class="layui-nav-more"></em>
 				</a>
 				<dl class="layui-nav-child">
-                    <dd  >
-                        <a href="javascript:;" data-url="personInfo.html" data-id="tabAdd">
-                            <i class="iconfont icon-geren1" data-icon='icon-geren1'></i>
-                            <span>病种管理</span>
-                        </a>
-                    </dd>
-                    <dd >
-                        <a href="javascript:;" data-url="changepwd.html" data-id="tabAdd">
-                            <i class="iconfont icon-iconfuzhi01" data-icon='icon-iconfuzhi01'></i>
-                            <span>KPI管理</span>
-                        </a>
-                    </dd>
-                    
+                    <dd>
+                    	<a class="site-demo-active"  data-title="KPI管理" data-url="changepwd.html" data-type="tabAdd">
+                    		<i class="iconfont icon-iconfuzhi01" data-icon='icon-iconfuzhi01'></i>
+                    		<span>KPI管理</span>
+                		</a>
+            		</dd>
+                    <dd>
+                    	<a class="site-demo-active" data-title="病种管理" data-url="personInfo.html" data-type="tabAdd">
+                    		<i class="iconfont icon-iconfuzhi01" data-icon='icon-iconfuzhi01'></i>
+                    		<span>病种管理</span>
+                		</a>
+            		</dd>
                 </dl>
 			</li>
 			
@@ -118,20 +117,25 @@
 	</div>
 </div>
 <script>
-layui.use('element', function(){
+
+layui.use(['element',],function(){
   var $ = layui.jquery
-  ,element = layui.element(); //Tab的切换功能，切换事件监听等，需要依赖element模块
-  
+  ,element = layui.element();
   //触发事件
   var active = {
-    tabAdd: function(){
+    tabAdd: function(othis){
+      	var title=othis.data('title');
+      	var href=othis.data('url');
+      //var id =othis.data('id');
       //新增一个Tab项
-      element.tabAdd('demo', {
-        title: '新选项'+ (Math.random()*1000|0) //用于演示
-        ,content: "<iframe src='personInfo.html' data-id='1' class='larry-iframe' style='height: 475px;''></iframe>"
-        ,id: 12 //实际使用一般是规定好的id，这里以时间戳模拟下
-      })
-      element.tabChange('demo', '12');
+      if ($("[src='"+href+"']").length==0) {
+      	element.tabAdd('demo', {
+        	title: title //用于演示
+        	,content: "<iframe src='"+href+"' data-id='1' class='larry-iframe' style='height: 475px;''></iframe>"
+        	,id: title //实际使用一般是规定好的id，这里以时间戳模拟下
+      	})
+      }
+      	element.tabChange('demo', title);
     }
     ,tabDelete: function(othis){
       //删除指定Tab项

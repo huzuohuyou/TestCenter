@@ -35,52 +35,6 @@ layui.config({
   }).resize();
   
   // 左侧菜单导航-->tab
-$(function(){
-    // 注入菜单
-    // var $menu = $('.larry-tab-menu');
-    // console.log($menu);
-    // $('#larry-tab .layui-tab-title').append($menu);
-    $('#larry-nav-side').click(function(){
-        if($(this).attr('lay-filter')!== undefined){
-            $(this).children('ul').find('li').each(function(){
-                var $this = $(this);
-                if($this.find('dl').length > 0){
-                   var $dd = $this.find('dd').each(function(){
-                       $(this).click(function(){
-                           var $a = $(this).children('a');
-                           var href = $a.data('url');
-                           var icon = $a.children('i:first').data('icon');
-                           var title = $a.children('span').text();
-                           var id=123;
-                           var data = {
-                                 id:id,
-                                 href: href,
-                                 icon: icon,
-                                 title: title
-                           }
-                           navtab.tabAdd(data);
-                       });
-                   });
-                }else{
-                    $this.click(function(){
-                           var $a = $(this).children('a');
-                           var href = $a.data('url');
-                           var icon = $a.children('i:first').data('icon');
-                           var title = $a.children('span').text();
-                           var id=123;
-                           var data = {
-                                 id:id,
-                                 href: href,
-                                 icon: icon,
-                                 title: title
-                           }
-                           navtab.tabAdd(data);
-                    });
-                }
-            });
-        }
-    })
-})
 
 
 });
