@@ -16,6 +16,29 @@
 </head>
 <body style="background-color: white">
 <section class="layui-larry-box" style="padding-top: 0px; ">
+<form class="layui-form" action="">
+  <label class="layui-form-label"  style="margin-top: 10px;width: 100px">是否配置</label>
+  <div class="layui-input-inline" style="margin-top: 10px;float: left;width: 120px;">
+    <select name="quiz1">
+      <option value="">是否配置</option>
+      <option value="浙江" selected="">全部</option>
+      <option value="你的工号">未配置</option>
+      <option value="你最喜欢的老师">已配置</option>
+    </select>
+  </div>
+  
+
+  <div class="layui-input-inline" style="margin-top: 10px;margin-left: 20px;float: left;width: 120px;">
+    <select name="quiz1">
+      <option value="">请选择过滤条件</option>
+      <option value="浙江" selected="">KPI编码</option>
+      <option value="你的工号">KPI名称</option>
+    </select>
+  </div>
+      <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入搜索内容" class="layui-input" style="width: 200px;float: left;margin-top: 10px;margin-right: 10px;">
+  <button class="layui-btn layui-btn-radius" style="margin-top: 10px;width: 80px">查询</button>
+  <button class="layui-btn layui-btn-radius" style="margin-top: 10px;float: right;width: 80px">添加</button>
+</form>
 	<table class="layui-table" lay-even="" lay-skin="row">
   <colgroup>
     <col width="150">
@@ -25,10 +48,9 @@
   </colgroup>
   <thead>
     <tr style="height: 50px">
-      <th style="width: 10%">KPI编码</th>
-      <th style="width: 15%">KPI名称</th>
+      <th style="width: 20%">KPI编码</th>
+      <th style="width: 35%">KPI名称</th>
       <th style="width: 15%">是否配置</th>
-      <th style="width: 10%">方法</th>
       <th>操作</th>
     </tr> 
   </thead>
@@ -38,15 +60,11 @@
       <td>{{p.Name}}</td>
       <td>{{p.CDRStatus}}</td>
       <td>{{p.SDRStatus}}</td>
-      <td>{{p.Cdate}}</td>
-      <td>{{p.Cdate}}</td>
-      <td>{{p.Cdate}}</td>
-      <td>{{p.Cdate}}</td>
       <td style="text-align:center">
         <div class="layui-btn-group">
-          <button class="layui-btn layui-btn-small ">编辑</button>
-          <button class="layui-btn layui-btn-small">删除</button>
-          <button class="layui-btn layui-btn-small">配置管理</button>
+          <button class="layui-btn layui-btn-small" data-method="setTop" data-type="auto">编辑</button>
+          <button class="layui-btn layui-btn-small" data-method="offset" data-type="auto">删除</button>
+          <button class="layui-btn layui-btn-small" data-method="setTop" data-type="auto">配置</button>
         </div>
       </td>
     </tr>
@@ -68,6 +86,67 @@
          });
 
 	});
+</script>
+<script>
+layui.use('layer', function(){ //独立版的layer无需执行这一句
+  var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+  
+  //触发事件
+  var active = {
+    setTop: function(){
+      var that = this; 
+      //多窗口模式，层叠置顶
+      layer.open({
+        type: 2 //此处以iframe举例
+        ,title: '配置入组'
+        ,area: ['780px', '390px']
+        ,shade: 0
+        ,maxmin: true
+        ,offset: 'auto'
+        ,content: 'setting_ingroup.html'
+        ,btn: [ '全部关闭'] //只是为了演示
+        
+        ,btn2: function(){
+          layer.closeAll();
+        }
+        ,zIndex: layer.zIndex //重点1
+        ,success: function(layero){
+          layer.setTop(layero); //重点2
+        }
+      });
+    }
+    ,confirmTrans: function(){
+      //配置一个透明的询问框
+      layer.msg('确定删除入组配置吗？', {
+        time: 20000, //20s后自动关闭
+        btn: ['确定', '取消']
+      });
+    }
+    ,offset: function(othis){
+      var type = othis.data('type')
+      ,text = othis.text();
+      
+      layer.open({
+        type: 1
+        ,offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+        ,id: 'LAY_demo'+type //防止重复弹出
+        ,content: '<div style="padding: 20px 100px;"> 确定删除？ </div>'
+        ,btn: ['确定','取消']
+        ,btnAlign: 'c' //按钮居中
+        ,shade: 0 //不显示遮罩
+        ,yes: function(){
+          layer.closeAll();
+        }
+      });
+    }
+    };
+  
+  $('.layui-btn-group .layui-btn-small').on('click', function(){
+    var othis = $(this), method = othis.data('method');
+    active[method] ? active[method].call(this, othis) : '';
+  });
+  
+});
 </script>
 </body>
 </html>
