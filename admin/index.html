@@ -52,9 +52,9 @@
 				</a>
 				<dl class="layui-nav-child">
                     <dd>
-                    	<a class="site-demo-active"  data-title="KPI管理" data-url="changepwd.html" data-type="tabAdd">
+                    	<a class="site-demo-active"  data-title="配置管理" data-url="manageall.html" data-type="tabAdd">
                     		<i class="iconfont icon-iconfuzhi01" data-icon='icon-iconfuzhi01'></i>
-                    		<span>KPI管理</span>
+                    		<span>配置管理</span>
                 		</a>
             		</dd>
                     <dd>
@@ -100,7 +100,7 @@
 </div>
 <!-- 加载js文件-->
 	<script type="text/javascript" src="../common/layui/layui.js"></script> 
-	<script type="text/javascript" src="js/larry.js"></script>
+	<script type="text/javascript" src="js/larry.js?v=99"></script>
 	<script type="text/javascript" src="js/index.js"></script>
 <!-- 锁屏 -->
 <div class="lock-screen" style="display: none;">
@@ -131,7 +131,7 @@ layui.use(['element',],function(){
       if ($("[src='"+href+"']").length==0) {
       	element.tabAdd('demo', {
         	title: title //用于演示
-        	,content: "<iframe src='"+href+"' data-id='1' class='larry-iframe' style='height: 475px;''></iframe>"
+        	,content: "<iframe src='"+href+"' data-id='1' class='larry-iframe' style='height: 475px;background-color: #f1f2f7''></iframe>"
         	,id: title //实际使用一般是规定好的id，这里以时间戳模拟下
       	})
       }

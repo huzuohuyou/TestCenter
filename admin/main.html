@@ -14,10 +14,10 @@
 	<link rel="stylesheet" type="text/css" href="../common/global.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css" media="all">
 </head>
-<body>
+<body >
 <blockquote class="layui-elem-quote" style="margin-top: 10px; margin-left: 20px;">当前位置>项目管理</blockquote>
-<section class="larry-wrapper">
-  <button class="layui-btn layui-btn-radius">添加项目</button>
+<section class="larry-wrapper" id="app" style="padding-top: 0px">
+  <button class="layui-btn layui-btn-radius" >添加项目</button>
 	<table class="layui-table" lay-even="" lay-skin="row">
   <colgroup>
     <col width="150">
@@ -34,12 +34,13 @@
       <th>操作</th>
     </tr> 
   </thead>
-  <tbody>
-    <tr>
-      <td>南山医院</td>
-      <td>未配</td>
-      <td>未配</td>
-      <td>1989-10-14</td>
+  <tbody   >
+    <tr v-for="p in projects">
+      <td hidden>{{p.ID}}</td>
+      <td>{{p.Name}}</td>
+      <td>{{p.CDRStatus}}</td>
+      <td>{{p.SDRStatus}}</td>
+      <td>{{p.Cdate}}</td>
       <td style="text-align:center">
         <div class="layui-btn-group">
           <button class="layui-btn layui-btn-small ">编辑</button>
@@ -48,19 +49,7 @@
         </div>
       </td>
     </tr>
-    <tr>
-      <td>协和医院</td>
-      <td>已配</td>
-      <td>已配</td>
-      <td>1920-09-30</td>
-      <td style="text-align:center">
-        <div class="layui-btn-group">
-          <button class="layui-btn layui-btn-small">编辑</button>
-          <button class="layui-btn layui-btn-small">删除</button>
-          <button class="layui-btn layui-btn-small">配置管理</button>
-        </div>
-      </td>
-    </tr>
+    
     
   </tbody>
 </table>  
@@ -68,6 +57,8 @@
 </section>
 
 <script type="text/javascript" src="../common/layui/layui.js"></script>
+<script type="text/javascript" src="../common/vue/vue.js"></script>
+<script type="text/javascript" src="../common/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 	layui.use(['jquery','layer','element'],function(){
 		window.jQuery = window.$ = layui.jquery;
@@ -86,6 +77,20 @@
        })
 
 	});
+
+new Vue({
+  el: '#app',
+  data(){
+    return {projects:[]}},
+    beforeCreate:function(){
+        var url="http://localhost:8087/api/Project";
+        var that=this;
+        jQuery.support.cors = true;
+        $.get(url,function(data,status){
+          that.projects=data
+        })
+    }
+})
 </script>
 </body>
 </html>
