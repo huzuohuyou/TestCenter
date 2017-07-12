@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>个人信息</title>
+	<title>配置KPI</title>
 	<meta name="renderer" content="webkit">	
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">	
@@ -14,64 +14,67 @@
 	<link rel="stylesheet" type="text/css" href="../common/global.css" media="all">
 	<link rel="stylesheet" type="text/css" href="css/personal.css" media="all">
 </head>
-<body style="background-color: white">
-<section class="layui-larry-box" style="padding-top: 0px; ">
-<form class="layui-form" action="">
-  <label class="layui-form-label"  style="margin-top: 10px;width: 100px">是否配置</label>
-  <div class="layui-input-inline" style="margin-top: 10px;float: left;width: 120px;">
-    <select name="quiz1">
-      <option value="">是否配置</option>
-      <option value="浙江" selected="">全部</option>
-      <option value="你的工号">未配置</option>
-      <option value="你最喜欢的老师">已配置</option>
-    </select>
-  </div>
-  
-
-  <div class="layui-input-inline" style="margin-top: 10px;margin-left: 20px;float: left;width: 120px;">
-    <select name="quiz1">
-      <option value="">请选择过滤条件</option>
-      <option value="浙江" selected="">KPI编码</option>
-      <option value="你的工号">KPI名称</option>
-    </select>
-  </div>
-      <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入搜索内容" class="layui-input" style="width: 200px;float: left;margin-top: 10px;margin-right: 10px;">
-  <button class="layui-btn layui-btn-radius" style="margin-top: 10px;width: 80px">查询</button>
-  <button class="layui-btn layui-btn-radius" style="margin-top: 10px;float: right;width: 80px">添加</button>
-</form>
-	<table class="layui-table" lay-even="" lay-skin="row">
-  <colgroup>
-    <col width="150">
-    <col width="150">
-    <col width="200">
-    <col>
-  </colgroup>
-  <thead>
-    <tr style="height: 50px">
-      <th style="width: 20%">KPI编码</th>
-      <th style="width: 35%">KPI名称</th>
-      <th style="width: 15%">是否配置</th>
-      <th>操作</th>
-    </tr> 
-  </thead>
-  <tbody   >
-    <tr v-for="p in projects">
-      <td hidden>{{p.ID}}</td>
-      <td>{{p.Name}}</td>
-      <td>{{p.CDRStatus}}</td>
-      <td>{{p.SDRStatus}}</td>
-      <td style="text-align:center">
-        <div class="layui-btn-group">
-          <button class="layui-btn layui-btn-small" data-method="setTop" data-type="auto">编辑</button>
-          <button class="layui-btn layui-btn-small" data-method="offset" data-type="auto">删除</button>
-          <button class="layui-btn layui-btn-small" data-method="setTop" data-type="auto">配置</button>
-        </div>
-      </td>
-    </tr>
-    
-    
-  </tbody>
-</table>  
+<body>
+<section class="layui-larry-box">
+	<div class="larry-personal">
+		
+		<div class="larry-personal-body clearfix">
+			<form class="layui-form col-lg-5" action="" method="post">
+				
+				<table class="layui-table" style="margin-top: 0px;" lay-even="" lay-skin="row">
+				  <colgroup>
+				    <col width="150">
+				    <col width="150">
+				    <col width="200">
+				    <col>
+				  </colgroup>
+				  <thead>
+				    <tr style="height: 30px;padding: 0px 5px;">
+				      <th style="width: 20%;padding: 0px 5px;">数据类型</th>
+				      <th style="width: 20%;padding: 0px 5px;">编码</th>
+				      <th style="width: 40%;padding: 0px 5px;">名称</th>
+				      <th style="padding: 0px 5px;">操作</th>
+				    </tr> 
+				  </thead>
+				  <tbody   >
+				    <tr v-for="p in projects">
+				      <td style="padding: 2px 5px;" hidden>{{p.ID}}</td>
+				      <td style="padding: 2px 5px;">{{p.Name}}</td>
+				      <td style="padding: 2px 5px;">{{p.CDRStatus}}</td>
+				      <td style="padding: 2px 5px;">{{p.SDRStatus}}</td>
+				      <td style="text-align:center;padding: 2px 5px;">
+				        <div class="layui-btn-group">
+				          <button class="layui-btn layui-btn-small" data-method="setTop" data-type="auto">编辑</button>
+				          <button class="layui-btn layui-btn-small" data-method="offset" data-type="auto">删除</button>
+				          <button class="layui-btn layui-btn-small" data-method="setTop" data-type="auto">添加</button>
+				        </div>
+				      </td>
+				    </tr>
+				    
+				    
+				  </tbody>
+				</table>  
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="text-align: left;">分母公式</label>
+					<div class="layui-input-block">
+						<textarea placeholder="既然选择了远方，便只顾风雨兼程；路漫漫其修远兮，吾将上下而求索" value="" class="layui-textarea"></textarea>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="text-align: left;">分子公式</label>
+					<div class="layui-input-block">
+						<textarea placeholder="既然选择了远方，便只顾风雨兼程；路漫漫其修远兮，吾将上下而求索" value="" class="layui-textarea"></textarea>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 </section>
 <script type="text/javascript" src="../common/layui/layui.js"></script>
 <script type="text/javascript">
@@ -103,7 +106,7 @@ layui.use('layer', function(){ //独立版的layer无需执行这一句
         ,shade: 0
         ,maxmin: true
         ,offset: 'auto'
-        ,content: 'setting_kpi.html'
+        ,content: 'select_dataitem.html'
         ,btn: ['继续弹出', '全部关闭'] //只是为了演示
         ,yes: function(){
           $(that).click(); 
