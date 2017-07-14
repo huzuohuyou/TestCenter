@@ -9,49 +9,49 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black"> 
   <meta name="apple-mobile-web-app-capable" content="yes">  
   <meta name="format-detection" content="telephone=no"> 
-	<link rel="stylesheet" type="text/css" href="../common/layui/css/layui.css" media="all">
-	<link rel="stylesheet" type="text/css" href="../common/bootstrap/css/bootstrap.css" media="all">
-	<link rel="stylesheet" type="text/css" href="../common/global.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css" media="all">
+  <link rel="stylesheet" type="text/css" href="../common/layui/css/layui.css" media="all">
+  <link rel="stylesheet" type="text/css" href="../common/bootstrap/css/bootstrap.css" media="all">
+  <link rel="stylesheet" type="text/css" href="../common/global.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css" media="all">
 </head>
 <body >
-<section class="larry-wrapper" id="app" style="padding-top: 1 0px">
-  <button class="layui-btn layui-btn-radius" data-method="setTop" data-type="auto">添加项目</button>
-	<table class="layui-table" lay-even="" lay-skin="row">
-  <colgroup>
-    <col width="150">
-    <col width="150">
-    <col width="200">
-    <col>
-  </colgroup>
-  <thead>
-    <tr style="height: 50px">
-      <th style="width: 30%">项目名称</th>
-      <th style="width: 15%">CDR</th>
-      <th style="width: 15%">SDR/EDR</th>
-      <th>创建时间</th>
-      <th>操作</th>
-    </tr> 
-  </thead>
-  <tbody   >
-    <tr v-for="p in projects">
-      <td hidden>{{p.ID}}</td>
-      <td>{{p.Name}}</td>
-      <td>{{p.CDRStatus}}</td>
-      <td>{{p.SDRStatus}}</td>
-      <td>{{p.Cdate}}</td>
-      <td style="text-align:center">
-        <div class="layui-btn-group">
-          <button class="layui-btn layui-btn-small" data-method="setTop" data-type="auto">编辑</button>
-          <button class="layui-btn layui-btn-small" data-method="offset" data-type="auto">删除</button>
-          <button class="layui-btn layui-btn-small" data-method="setTop" data-type="auto">配置</button>
-        </div>
-      </td>
-    </tr>
-    
-    
-  </tbody>
-</table>  
+  <section class="larry-wrapper" id="app" style="padding-top: 1 0px">
+    <button class="layui-btn layui-btn-radius" data-method="setTop" data-type="auto">添加项目</button>
+    <table class="layui-table" lay-even="" lay-skin="row">
+      <colgroup>
+      <col width="150">
+      <col width="150">
+      <col width="200">
+      <col>
+    </colgroup>
+    <thead>
+      <tr style="height: 50px">
+        <th style="width: 30%">项目名称</th>
+        <th style="width: 15%">CDR</th>
+        <th style="width: 15%">SDR/EDR</th>
+        <th>创建时间</th>
+        <th>操作</th>
+      </tr> 
+    </thead>
+    <tbody   >
+      <tr v-for="p in projects">
+        <td hidden>{{p.ID}}</td>
+        <td>{{p.Name}}</td>
+        <td>{{p.CDRStatus}}</td>
+        <td>{{p.SDRStatus}}</td>
+        <td>{{p.Cdate}}</td>
+        <td style="text-align:center">
+          <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-small" data-method="setTop" data-type="auto">编辑</button>
+            <button class="layui-btn layui-btn-small" data-method="offset" data-type="auto">删除</button>
+            <button class="layui-btn layui-btn-small" data-method="setTop" data-type="auto">配置</button>
+          </div>
+        </td>
+      </tr>
+
+
+    </tbody>
+  </table>  
 
 </section>
 
@@ -61,109 +61,109 @@
 <script type="text/javascript">
 	layui.use(['jquery','layer','element'],function(){
 		window.jQuery = window.$ = layui.jquery;
-		window.layer = layui.layer;
-        window.element = layui.element();
+		var $ = layui.jquery, layer = layui.layer;
+    window.element = layui.element();
 
-       $('.panel .tools .iconpx-chevron-down').click(function(){
-       	   var el = $(this).parents(".panel").children(".panel-body");
-       	   if($(this).hasClass("iconpx-chevron-down")){
-       	   	   $(this).removeClass("iconpx-chevron-down").addClass("iconpx-chevron-up");
-       	   	   el.slideUp(200);
-       	   }else{
-       	   	   $(this).removeClass("iconpx-chevron-up").addClass("iconpx-chevron-down");
-       	   	   el.slideDown(200);
-       	   }
-       })
+    $('.panel .tools .iconpx-chevron-down').click(function(){
+     var el = $(this).parents(".panel").children(".panel-body");
+     if($(this).hasClass("iconpx-chevron-down")){
+       $(this).removeClass("iconpx-chevron-down").addClass("iconpx-chevron-up");
+       el.slideUp(200);
+     }else{
+       $(this).removeClass("iconpx-chevron-up").addClass("iconpx-chevron-down");
+       el.slideDown(200);
+     }
+   })
 
-	});
-
+  });
+  
+    
+layui.use('layer', function(){ //独立版的layer无需执行这一句
+  var $ = layui.jquery, layer = layui.layer;
+  layer.load();
 new Vue({
   el: '#app',
-  data(){
-    return {projects:[]}},
-    beforeCreate:function(){
-        var url="http://192.168.2.127:8087/api/Project";
+    data(){return {projects:[]}},
+      beforeCreate:function(){
         var that=this;
         jQuery.support.cors = true;
-        $.get(url,function(data,status){
-          that.projects=data
-        })
-    }
-})
+          $.ajax({
+        　　url:'http://192.168.2.127:8087/api/Project',  //请求的URL
+        　　timeout : 10000, //超时时间设置，单位毫秒
+        　　type : 'get',  //请求方式，get或post
+        　　data :{},  //请求所传参数，json格式
+        　　dataType:'json',//返回的数据格式
+        　　success:function(data){ //请求成功的回调函数
+              layer.closeAll('loading');
+          　　　　that.projects=data
+        　　},
+        　　complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
+        　　　　if(status=='timeout'){//超时,status还有success,error等值的情况
+         　　　　　 layer.closeAll('loading');
+         　　　　　 alert("超时");
+       　　　　}
+     　　}
+        });
+        }
+      })
+  })
+
 </script>
-<script>
-layui.use('layer', function(){ //独立版的layer无需执行这一句
-  var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
-  
-  //触发事件
-  var active = {
-    setTop: function(){
-      /*var that = this; 
-      //多窗口模式，层叠置顶
-      layer.open({
-        type: 2 //此处以iframe举例
-        ,title: '配置入组'
-        ,area: ['780px', '390px']
-        ,shade: 0
-        ,maxmin: true
-        ,offset: 'auto'
-        ,content: 'setting_ingroup.html'
-        ,btn: [ '全部关闭'] //只是为了演示
+<script type="text/javascript">
+  layui.use('layer', function(){ //独立版的layer无需执行这一句
+    var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+    //触发事件
+    var active = {
+      setTop: function(){
+        var index = layer.open({
+          type: 2,
+          content: 'setting_ingroup.html',
+          area: ['920px', '520px'],
+          maxmin: false
+        });
+        layer.full(index);
+      }
+      ,confirmTrans: function(){
+        //配置一个透明的询问框
+        layer.msg('确定删除入组配置吗？', {
+          time: 20000, //20s后自动关闭
+          btn: ['确定', '取消']
+        });
+      }
+      ,openloading:function(){
+          layer.load();
+      }
+      ,closeloading:function(){
+          layer.closeAll('loading');
+      }
+      ,offset: function(othis){
+        var type = othis.data('type')
+        ,text = othis.text();
         
-        ,btn2: function(){
-          layer.closeAll();
-        }
-        ,zIndex: layer.zIndex //重点1
-        ,success: function(layero){
-          layer.setTop(layero); //重点2
-        }
-      });*/
-
-      var index = layer.open({
-        type: 2,
-        content: 'setting_ingroup.html',
-        area: ['920px', '520px'],
-        maxmin: false
-      });
-      layer.full(index);
-    }
-    
-
-    ,confirmTrans: function(){
-      //配置一个透明的询问框
-      layer.msg('确定删除入组配置吗？', {
-        time: 20000, //20s后自动关闭
-        btn: ['确定', '取消']
-      });
-    }
-    ,offset: function(othis){
-      var type = othis.data('type')
-      ,text = othis.text();
-      
-      layer.open({
-        type: 1
-        ,offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
-        ,id: 'LAY_demo'+type //防止重复弹出
-        ,content: '<div style="padding: 20px 100px;"> 确定删除？ </div>'
-        ,btn: ['确定','取消']
-        ,btnAlign: 'c' //按钮居中
-        ,shade: 0 //不显示遮罩
-        ,yes: function(){
-          layer.closeAll();
-        }
-      });
-    }
+        layer.open({
+          type: 1
+          ,offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+          ,id: 'LAY_demo'+type //防止重复弹出
+          ,content: '<div style="padding: 20px 100px;"> 确定删除？ </div>'
+          ,btn: ['确定','取消']
+          ,btnAlign: 'c' //按钮居中
+          ,shade: 0 //不显示遮罩
+          ,yes: function(){
+            layer.closeAll();
+          }
+        });
+      }
     };
-  
-  $('.larry-wrapper .layui-btn-radius').on('click', function(){
-    var othis = $(this), method = othis.data('method');
-    active[method] ? active[method].call(this, othis) : '';
+    
+    $('.larry-wrapper .layui-btn-radius').on('click', function(){
+      var othis = $(this), method = othis.data('method');
+      active[method] ? active[method].call(this, othis) : '';
+    });
+    $('.layui-btn-group .layui-btn-small').on('click', function(){
+      var othis = $(this), method = othis.data('method');
+      active[method] ? active[method].call(this, othis) : '';
+    });
   });
-  $('.layui-btn-group .layui-btn-small').on('click', function(){
-    var othis = $(this), method = othis.data('method');
-    active[method] ? active[method].call(this, othis) : '';
-  });
-});
 </script>
 </body>
 </html>
