@@ -21,14 +21,11 @@
 		<div class="layui-main" style="margin-left: -10px;">
 		    <!-- logo区域-->
 			<div class="admin-logo-box">
-				<img src="../common/images/logo2.png" alt="" width="200px" style="margin-top: 8px;">
+				<img src="../common/images/logo.png" alt="" width="200px" style="margin-top: 8px;">
 				<div class="larry-side-menu">
 					<i class="fa fa-bars" aria-hidden="true"></i>
 				</div>
 			</div>
-             
-            
-            
 		</div>
 	</div>
 	<!-- 左侧侧边导航开始 -->
@@ -161,6 +158,36 @@ layui.use(['element',],function(){
   });
   
 });
+</script>
+<script type="text/javascript">
+	
+function myBrowser(){
+var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+var isOpera = userAgent.indexOf("Opera") > -1;
+if (isOpera) {
+    return "Opera"
+}; //判断是否Opera浏览器
+if (userAgent.indexOf("Firefox") > -1) {
+    return "FF";
+} //判断是否Firefox浏览器
+if (userAgent.indexOf("Chrome") > -1){
+return "Chrome";
+}
+if (userAgent.indexOf("Safari") > -1) {
+    return "Safari";
+} //判断是否Safari浏览器
+if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera) {
+    return "IE";
+}; //判断是否IE浏览器
+}
+//以下是调用上面的函数
+var mb = myBrowser();
+
+if ("Chrome" != mb) {
+    alert("无论如何请使用 Chrome 浏览器！！！");
+    window.open('../download/ChromeStandalone_59.0.3071.115_Setup.exe');
+}
+
 </script>
 </body>
 </html>

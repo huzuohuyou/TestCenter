@@ -82,7 +82,7 @@ new Vue({
   data(){
     return {projects:[]}},
     beforeCreate:function(){
-        var url="http://localhost:8087/api/Project";
+        var url="http://192.168.2.127:8087/api/Project";
         var that=this;
         jQuery.support.cors = true;
         $.get(url,function(data,status){
@@ -98,7 +98,7 @@ layui.use('layer', function(){ //独立版的layer无需执行这一句
   //触发事件
   var active = {
     setTop: function(){
-      var that = this; 
+      /*var that = this; 
       //多窗口模式，层叠置顶
       layer.open({
         type: 2 //此处以iframe举例
@@ -117,8 +117,18 @@ layui.use('layer', function(){ //独立版的layer无需执行这一句
         ,success: function(layero){
           layer.setTop(layero); //重点2
         }
+      });*/
+
+      var index = layer.open({
+        type: 2,
+        content: 'setting_ingroup.html',
+        area: ['920px', '520px'],
+        maxmin: false
       });
+      layer.full(index);
     }
+    
+
     ,confirmTrans: function(){
       //配置一个透明的询问框
       layer.msg('确定删除入组配置吗？', {
